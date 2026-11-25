@@ -33,7 +33,7 @@ window.ORIGINPROOF_CONFIG = {
   chainIdDecimal: 400, // published in official JS SDK docs (see header)
   chainIdHex: "0x190", // arithmetic hex of 400; not published by ME itself
   networkName: "ME Network Testnet",
-  rpcUrl: "http://118.175.0.249:8545", // HTTP only — see mixed-content caveat above
+  rpcUrl: "https://originproof-rpc.officialavisotraining.workers.dev", // HTTPS via Cloudflare Worker proxy (25 Nov 2026) — forwards JSON-RPC to the HTTP ME RPC; no insecure-content exception needed
   blockExplorerUrl: "https://www.explorer-testnet.me/", // general testnet explorer
   currencySymbol: "MEC",
   currencyDecimals: 18,
