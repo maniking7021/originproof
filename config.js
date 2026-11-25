@@ -28,7 +28,7 @@
 //   docs-sourced, not live-verified here. Verify it responds in Remix
 //   before deploying.
 // ---------------------------------------------------------------------------
-const ORIGINPROOF_CONFIG = {
+window.ORIGINPROOF_CONFIG = {
   // ME Network testnet (use testnet first; mainnet only if the team decides)
   chainIdDecimal: 400, // published in official JS SDK docs (see header)
   chainIdHex: "0x190", // arithmetic hex of 400; not published by ME itself
