@@ -1,9 +1,9 @@
 # OriginProof — HARBOR Submission Package
 
 > Ready-to-paste text for the MetaEarth HARBOR submission form
-> (track: **AI & Trust Infrastructure**). Replace the bracketed fields
-> after deploy: `[CONTRACT_ADDRESS]`, `[DEMO_URL]`, `[REPO_URL]`,
-> `[VIDEO_URL]`. Everything else is final.
+> (track: **AI & Trust Infrastructure**). Deployed + live 25 Nov 2026 —
+> only the demo video link `[VIDEO_URL]` is still open (record after the
+> end-to-end test; script in `docs/demo-video-script.md`).
 
 ---
 
@@ -161,8 +161,8 @@ which no competitor has.
 
 ## 9. Links (fill after deploy)
 
-- Live demo: `[DEMO_URL]`
-- Contract on ME explorer: `https://www.explorer-testnet.me/address/[CONTRACT_ADDRESS]`
-- Code repository: `[REPO_URL]`
+- Live demo: `https://maniking7021.github.io/originproof/`
+- Contract on ME explorer: `https://www.explorer-testnet.me/` — contract `0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc` (deployed 25 Nov 2026, tx `0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706`, block 5502685)
+- Code repository: `https://github.com/maniking7021/originproof`
 - Demo video (3–5 min, English): `[VIDEO_URL]`
 - Team: Mani Team — Muhammad Zaman (captain, ME ID verified) + Sohail Abbas (ME ID verified)
