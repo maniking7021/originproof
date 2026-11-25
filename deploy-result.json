@@ -1,0 +1,8 @@
+{
+  "contractAddress": "0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc",
+  "transactionHash": "0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706",
+  "deployer": "0x43EEf80BB4Ac4D5157863E666fF49e822B1ec7b9",
+  "meAddress": "me1g0h0sza543x4z4ux8enxlay7sg43a3aekptddt",
+  "chainId": 400,
+  "rpc": "http://118.175.0.249:8545"
+}

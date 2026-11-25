@@ -1,0 +1,18 @@
+{
+  "name": "originproof",
+  "version": "1.0.0",
+  "description": "**Track:** AI & Trust Infrastructure · **Prize pool:** 100,000 USDT (1st: 40,000) **Submission deadline:** 21 Dec 2026, 15:59 UTC (8:59 PM PKT) · **Demo Day:** 15 Jan 2027",
+  "main": "compile.js",
+  "scripts": {
+    "test": "node tests/test-lib.js && node tests/test-contract.js && node tests/test-extension.js && node tests/test-i18n-api.js",
+    "compile": "node compile.js",
+    "benchmark": "node benchmark.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^5.8.0",
+    "solc": "^0.8.28"
+  }
+}

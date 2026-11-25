@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OriginProof — Prove where media came from</title>
+<meta name="description" content="OriginProof registers the SHA-256 fingerprint and perceptual hash of photos and videos on ME Network, so anyone can verify when media was first published, by whom, and whether a copy is a near-duplicate.">
+<meta name="theme-color" content="#0b1220">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #0b1220; --bg-soft: #0e1729; --surface: #111c31; --surface-2: #16233d;
+    --border: #22314f; --text: #e8eef7; --muted: #93a3bd; --faint: #64748b;
+    --accent: #2dd4bf; --accent-ink: #04211d; --gold: #f59e0b;
+    --green: #34d399; --amber: #fbbf24; --orange: #fb923c; --red: #f87171;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); }
+  code { background: #0b1220; border: 1px solid var(--border); padding: .1rem .35rem; border-radius: 6px; word-break: break-all; font-size: .92em; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 1rem 4rem; }
+
+  /* Header */
+  header.top { border-bottom: 1px solid var(--border); background: var(--bg-soft); }
+  header.top .wrap { display: flex; align-items: center; gap: 1rem; padding-top: 1rem; padding-bottom: 1rem; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: .7rem; margin-right: auto; }
+  .brand .mark { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), #0ea5e9); display: grid; place-items: center; font-size: 1.3rem; color: var(--accent-ink); font-weight: 800; }
+  .brand h1 { font-size: 1.35rem; margin: 0; letter-spacing: .01em; }
+  .brand p { margin: 0; color: var(--muted); font-size: .85rem; }
+  .pill { display: inline-block; padding: .2rem .6rem; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); font-size: .8rem; white-space: nowrap; }
+  .pill.ok { color: var(--green); border-color: #14532d; }
+  .pill.warn { color: var(--amber); border-color: #713f12; }
+
+  h2 { font-size: 1.15rem; margin: 0 0 .4rem; }
+  h3 { font-size: 1rem; margin: 1rem 0 .4rem; }
+  .sub { color: var(--muted); margin: 0 0 1rem; font-size: .95rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.2rem; margin: 1.2rem 0; }
+  .card.accent { border-color: #134e4a; }
+  .row { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; }
+  .grow { flex: 1; min-width: 200px; }
+
+  button { background: var(--accent); color: var(--accent-ink); border: none; border-radius: 9px; padding: .65rem 1.1rem; font-size: 1rem; font-weight: 700; cursor: pointer; }
+  button:hover { filter: brightness(1.08); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); font-weight: 600; }
+  button.ghost:hover { border-color: var(--accent); }
+  button.danger { background: transparent; color: var(--red); border: 1px solid #7f1d1d; font-weight: 600; }
+  input[type=file] { display: block; width: 100%; padding: .6rem; background: var(--bg); border: 1px dashed var(--border); border-radius: 9px; color: var(--muted); margin: .5rem 0; }
+  input[type=text] { width: 100%; padding: .65rem .7rem; border-radius: 9px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 1rem; }
+  input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  label { font-size: .9rem; color: var(--muted); display: block; margin: .6rem 0 .2rem; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88rem; }
+  .kv { display: grid; grid-template-columns: 150px 1fr; gap: .3rem .8rem; font-size: .95rem; margin: .5rem 0; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; word-break: break-all; }
+  .hint { color: var(--faint); font-size: .85rem; margin: .4rem 0; }
+  .warn { color: var(--amber); }
+  .hidden { display: none !important; }
+
+  /* Verdict badges */
+  .verdict { display: inline-block; font-size: 1.05rem; font-weight: 800; letter-spacing: .04em; padding: .35rem .8rem; border-radius: 8px; margin: .4rem 0; }
+  .verdict.original { background: #052e1b; color: var(--green); border: 1px solid #14532d; }
+  .verdict.near { background: #2a1f05; color: var(--amber); border: 1px solid #713f12; }
+  .verdict.copy { background: #2a1503; color: var(--orange); border: 1px solid #7c2d12; }
+  .verdict.altered { background: #2a1f05; color: var(--amber); border: 1px solid #713f12; }
+  .verdict.notfound { background: #2a0a0a; color: var(--red); border: 1px solid #7f1d1d; }
+  .verdict.pending { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+
+  /* Forensics */
+  .forensics { border: 1px solid var(--border); border-radius: 10px; padding: .8rem 1rem; margin-top: .8rem; background: var(--bg-soft); }
+  .forensics table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  .forensics td { padding: .28rem .4rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .forensics td:first-child { color: var(--muted); white-space: nowrap; width: 170px; }
+  .flag { display: inline-block; padding: .15rem .55rem; border-radius: 999px; font-size: .82rem; font-weight: 700; margin: .15rem .2rem .15rem 0; }
+  .flag.ai { background: #3b0764; color: #e9d5ff; border: 1px solid #7e22ce; }
+  .flag.c2pa { background: #082f49; color: #bae6fd; border: 1px solid #0369a1; }
+  .flag.software { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+  .flag.clean { background: #052e1b; color: var(--green); border: 1px solid #14532d; }
+  .flag.none { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+
+  /* Batch */
+  .file-row { display: flex; gap: .6rem; align-items: center; padding: .55rem .2rem; border-bottom: 1px solid var(--border); font-size: .93rem; flex-wrap: wrap; }
+  .file-row:last-child { border-bottom: none; }
+  .file-row .name { flex: 1; min-width: 160px; word-break: break-all; }
+  .file-row .st { font-weight: 700; white-space: nowrap; }
+  .st.ok { color: var(--green); } .st.bad { color: var(--red); } .st.wait { color: var(--muted); } .st.run { color: var(--amber); }
+  .progress { height: 8px; background: var(--bg); border-radius: 99px; overflow: hidden; margin: .5rem 0; }
+  .progress > div { height: 100%; background: var(--accent); width: 0%; transition: width .25s; }
+
+  /* Certificate */
+  .cert { border: 2px solid var(--gold); border-radius: var(--radius); padding: 1.4rem; background: linear-gradient(180deg, #141b2e, var(--surface)); }
+  .cert h2 { font-size: 1.4rem; }
+  .cert .badge { display: inline-block; background: var(--gold); color: #1c1005; font-weight: 800; border-radius: 999px; padding: .25rem .8rem; font-size: .85rem; letter-spacing: .05em; }
+  .cert .qr { background: #fff; padding: 12px; border-radius: 12px; display: inline-block; margin: .8rem 0; }
+  .cert .qr canvas { display: block; image-rendering: pixelated; }
+  .cert .foot { color: var(--faint); font-size: .82rem; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: .7rem; }
+
+  .tabs { display: flex; gap: .5rem; margin: 1.2rem 0 0; flex-wrap: wrap; }
+  .tabs button { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+  .tabs button.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  table.registry { width: 100%; border-collapse: collapse; font-size: .92rem; margin-top: .6rem; }
+  table.registry th, table.registry td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.registry th { color: var(--muted); font-weight: 600; }
+  select { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 9px; padding: .5rem .6rem; font-size: .95rem; }
+  .check { display: flex; gap: .5rem; align-items: center; margin: .6rem 0; color: var(--text); font-size: .95rem; }
+  .check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+  #status { white-space: pre-wrap; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 10px; padding: .7rem .9rem; margin: 1rem 0; font-size: .93rem; min-height: 2.6em; }
+  footer { color: var(--faint); font-size: .85rem; margin-top: 2rem; }
+  footer h3 { color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .kv { grid-template-columns: 1fr; gap: 0; }
+    .kv dd { margin-bottom: .5rem; }
+    .brand p { display: none; }
+  }
+  @media print {
+    body { background: #fff; color: #111; }
+    header.top, .tabs, #app, footer, .no-print { display: none !important; }
+    #certView { display: block !important; }
+    .cert { border-color: #b45309; background: #fff; }
+    .cert .foot { color: #555; }
+    code { background: #f3f4f6; border-color: #d1d5db; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark">◉</div>
+      <div>
+        <h1>OriginProof</h1>
+        <p>On-chain media provenance · ME Network</p>
+      </div>
+    </div>
+    <span class="pill" id="netPill">Network: not configured</span>
+    <span class="pill" id="walletPill">Wallet: not connected</span>
+    <select id="langSelect" aria-label="Language">
+      <option value="en">English</option>
+      <option value="ur">اردو (Urdu)</option>
+    </select>
+    <button id="connectBtn" class="ghost">Connect wallet</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <p id="configWarn" class="warn" style="margin-top:1rem"></p>
+
+  <!-- Certificate view: shown when the URL is #/cert/<sha256> -->
+  <section id="certView" class="hidden">
+    <div class="cert">
+      <span class="badge">✓ VERIFIED CERTIFICATE</span>
+      <h2>OriginProof Certificate</h2>
+      <p class="sub">This certificate proves the media below was first registered on ME Network at the time shown. Anyone can re-upload the original file to verify it.</p>
+      <div id="certBody"><p class="hint">Loading certificate…</p></div>
+      <div class="qr" id="certQrWrap"><canvas id="certQr" width="232" height="232" aria-label="QR code linking to this certificate"></canvas></div>
+      <p class="hint">Scan the QR code, or share the link — it opens this certificate.</p>
+      <div class="row no-print">
+        <button id="copyCertLinkBtn" class="ghost">Copy certificate link</button>
+        <button id="printCertBtn" class="ghost">Print certificate</button>
+        <button id="backBtn" class="ghost">← Back to OriginProof</button>
+      </div>
+      <p class="foot">OriginProof · AI &amp; Trust Infrastructure · MetaEarth Hackathon 2026: HARBOR. The file itself is never stored on-chain — only its SHA-256 fingerprint and perceptual hash, plus who registered it and when.</p>
+    </div>
+  </section>
+
+  <!-- Creator view: shown when the URL is #/creator/<meId> -->
+  <section id="creatorView" class="hidden">
+    <div class="card accent">
+      <div id="creatorBody"><p class="hint">Loading creator…</p></div>
+      <div class="row no-print" style="margin-top:.8rem">
+        <button id="creatorBackBtn" class="ghost">← Back to OriginProof</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main app -->
+  <div id="app">
+    <div class="tabs" role="tablist">
+      <button id="tabRegister" class="active" data-i18n="tab.register">Register</button>
+      <button id="tabBatch" data-i18n="tab.batch">Batch register</button>
+      <button id="tabVerify" data-i18n="tab.verify">Verify</button>
+      <button id="tabExplorer" data-i18n="tab.explorer">Public registry</button>
+    </div>
+
+    <!-- Register -->
+    <section id="panelRegister" class="card accent">
+      <h2 data-i18n="register.title">Register media</h2>
+      <p class="sub" data-i18n="register.sub">Upload a photo or video. Its SHA-256 fingerprint <em>and</em> its perceptual hash (dHash) are stored on ME Network. The file itself never leaves your device.</p>
+      <label for="regFile">File (photo or video)</label>
+      <input type="file" id="regFile" accept="image/*,video/*">
+      <label for="regTitle">Title</label>
+      <input type="text" id="regTitle" placeholder="Title, e.g. Press photo — summit" maxlength="120">
+      <label for="regMeId">ME ID (optional — your verified MetaEarth identity)</label>
+      <input type="text" id="regMeId" placeholder="me1… (leave empty to register without an ME ID)" maxlength="64" autocomplete="off">
+      <p class="hint">Linking your ME ID shows you as the verified owner on the certificate. Never paste a private key or seed phrase here — only the public <code>me1…</code> address.</p>
+      <label class="check"><input type="checkbox" id="regWatermark"> Add an invisible watermark (images only — embeds the record's fingerprint in the image's least-significant bits, downloadable as a PNG copy)</label>
+      <div id="regMeta"></div>
+      <div id="regForensics"></div>
+      <div class="row" style="margin-top:.9rem">
+        <button id="registerBtn">Register on ME Network</button>
+        <button id="regClearBtn" class="ghost">Clear</button>
+      </div>
+      <p class="hint">One transaction per file. Gas: one record is ~2 storage writes. A title is required — it is part of the on-chain record.</p>
+      <div id="regResult"></div>
+    </section>
+
+    <!-- Batch -->
+    <section id="panelBatch" class="card accent hidden">
+      <h2>Batch register — up to 10 files, one transaction</h2>
+      <p class="sub">Pick several photos or videos. Each file is fingerprinted locally, then all are registered in a single on-chain transaction. Files already registered are counted as copies, never rejected.</p>
+      <label for="batchFiles">Files (1–10)</label>
+      <input type="file" id="batchFiles" accept="image/*,video/*" multiple>
+      <label for="batchMeId">ME ID (optional — same verified identity for the whole batch)</label>
+      <input type="text" id="batchMeId" placeholder="me1… (leave empty to register without an ME ID)" maxlength="64" autocomplete="off">
+      <div id="batchList"></div>
+      <div class="progress hidden" id="batchProgress"><div></div></div>
+      <div class="row" style="margin-top:.9rem">
+        <button id="batchBtn" disabled>Register all on ME Network</button>
+        <button id="batchClearBtn" class="ghost">Clear</button>
+      </div>
+      <div id="batchResult"></div>
+    </section>
+
+    <!-- Verify -->
+    <section id="panelVerify" class="card accent hidden">
+      <h2 data-i18n="verify.title">Verify media</h2>
+      <p class="sub" data-i18n="verify.sub">Upload a file to check it. First we look for an exact SHA-256 match; if there is none, we search by perceptual hash for near-duplicates — resized, re-compressed or lightly cropped copies of a registered original.</p>
+      <label for="verFile">File (photo or video)</label>
+      <input type="file" id="verFile" accept="image/*,video/*">
+      <label for="sidecarInput">C2PA manifest sidecar (optional — the <code>.c2pa.json</code> downloaded at registration)</label>
+      <input type="file" id="sidecarInput" accept=".json,application/json">
+      <div id="verMeta"></div>
+      <div id="verForensics"></div>
+      <div class="row" style="margin-top:.9rem">
+        <button id="verifyBtn">Verify</button>
+        <button id="verClearBtn" class="ghost">Clear</button>
+      </div>
+      <div id="verifyResult"></div>
+      <div id="tamperDiffWrap" class="hidden" style="margin-top:1rem">
+        <h3>What changed — tamper diff</h3>
+        <canvas id="tamperDiffCanvas" width="192" height="144" style="image-rendering:pixelated;max-width:100%;border:1px solid var(--border);border-radius:8px"></canvas>
+        <p class="hint" id="tamperDiffLabel"></p>
+      </div>
+      <div id="videoFrameDiffWrap" class="hidden" style="margin-top:1rem">
+        <h3>What changed — video frames</h3>
+        <p class="hint">The 5 sampled frames that differ most from the registered original:</p>
+        <div id="videoFrameDiffList"></div>
+      </div>
+    </section>
+
+    <!-- Public registry / Explorer -->
+    <section id="panelExplorer" class="card accent hidden">
+      <h2 data-i18n="explorer.title">Public registry — verify without a wallet</h2>
+      <p class="sub" data-i18n="explorer.sub">Anyone can check a file here: upload it on the Verify tab and the result is looked up in the registry — no wallet, no account, no upload. The file never leaves your device; only its hashes are compared.</p>
+      <div id="explorerBody"><p class="hint">Loading registry…</p></div>
+    </section>
+
+    <p id="status">Ready. Connect a wallet to register; verification of exact matches works read-only once the contract address is set in config.js.</p>
+
+    <footer>
+      <h3>How it works</h3>
+      <p>1 · <strong>Register</strong> — the file is hashed in your browser (SHA-256 + dHash). Only the hashes, a title and your address go on-chain.<br>
+      2 · <strong>Verify</strong> — re-upload any file. An exact fingerprint match returns the original registration; otherwise the perceptual hash finds near-duplicates and reports a similarity %.<br>
+      3 · <strong>Certificate</strong> — every registration gets a shareable certificate page with a QR code (<code>#/cert/&lt;sha256&gt;</code>).</p>
+      <h3>Honest limits</h3>
+      <p>Perceptual hash works on images and on sampled video frames; it is a similarity signal, not a legal proof of ownership. The AI-origin score is a metadata heuristic, not a certified detector — metadata can be stripped or forged, so a low score never proves a file is human-made. The invisible watermark survives re-saving but not aggressive recompression or cropping. The C2PA manifest is a sidecar JSON aligned to C2PA assertion labels — it is not a signed JUMBF box or a certified Content Credential (see README). A SHA-256 match proves the file is byte-identical to the registered one; a near-duplicate match proves visual similarity, not that the copy came from the original. Registration is first-come-first-served: whoever registers first holds the origin claim. Your file never leaves your device — hashing, fingerprinting and verification all run in your browser, and this app works offline once installed.</p>
+      <p>Built for MetaEarth Hackathon 2026: HARBOR — track: AI &amp; Trust Infrastructure. Contract: <code>contracts/OriginProof.sol</code> · <a href="https://www.mec.me/en-US/hackathon/harbor" target="_blank" rel="noopener">Hackathon page</a></p>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script src="lib.js"></script>
+<script src="i18n.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+<script>
+  // PWA: installable + offline hashing (local files only; ethers CDN needs network).
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(() => { /* offline install is a nicety */ });
+    });
+  }
+  // Language switcher (English default; Urdu scaffold).
+  (function () {
+    const sel = document.getElementById("langSelect");
+    if (!sel || typeof OriginProofI18n === "undefined") return;
+    sel.addEventListener("change", () => OriginProofI18n.setLanguage(sel.value));
+    try { sel.value = OriginProofI18n.getLanguage(); } catch (e) { /* default en */ }
+    OriginProofI18n.apply();
+  })();
+</script>
+</body>
+</html>
