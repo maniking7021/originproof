@@ -5,7 +5,7 @@
 // Version the cache name on every release.
 "use strict";
 
-const CACHE_NAME = "originproof-v0.3.0";
+const CACHE_NAME = "originproof-v0.3.1";
 const CORE_FILES = [
   "./",
   "index.html",
