@@ -30,7 +30,7 @@ similar** and points at the original registration instead of saying "not found".
 | `frontend/api.js` | Public JS API (`OriginProofApi`): `hashFile`, `buildManifest`, `validateManifest`, `manifestHash`, `aiScore`, `isValidMeId`, `phashDistance`, `phashSimilarity` + a documented REST-style spec (`REST_SPEC`). Import in a browser or `require` in Node. |
 | `frontend/i18n.js` | UI strings externalised — English (default) + Urdu scaffold, language switcher, `data-i18n` wiring. |
 | `frontend/manifest.json` + `sw.js` + `icon.svg` | PWA: installable, offline hashing (local files cached; RPC/CDN still need network). |
-| `frontend/config.js` | Network + contract address config — **ME Network testnet values filled in** (chain ID 400, RPC `http://118.175.0.249:8545`, explorer `https://www.explorer-testnet.me/`, faucet `https://www.mec.me/en-US/faucet`). Contract address still a placeholder until deploy. |
+| `frontend/config.js` | Network + contract address config — **ME Network testnet values filled in** (chain ID 400, RPC `http://118.175.0.249:8545`, explorer `https://www.explorer-testnet.me/`, faucet `https://www.mec.me/en-US/faucet`). **Contract DEPLOYED 25 Nov 2026: `0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc`** (tx `0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706`, block 5502685). |
 | `extension/` | Browser extension scaffold (Manifest V3): right-click any image → hash locally → open the verify page; popup for pasted hashes. Install instructions in `extension/README.md`. |
 | `docs/submission/submission.md` | Ready-to-paste submission: description, problem, solution, architecture, ME integration, judging-criteria mapping, comparison table, roadmap. |
 | `docs/demo-video-script.md` | 3–5 min English demo video script + recording checklist (record after deploy). |
@@ -152,7 +152,7 @@ From the official ME docs — `frontend/config.js` now has:
 - `blockExplorerUrl: "https://www.explorer-testnet.me/"`
 - `faucetUrl: "https://www.mec.me/en-US/faucet"` (1 claim/address/day,
   2 MEC)
-- `contractAddress: ""` — **fill after deploy** (Remix shows it)
+- `contractAddress: "0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc"` — **deployed 25 Nov 2026** (tx `0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706`, block 5502685; `VERSION()` returns `"3"`)
 
 ## Quick start (deploy via Remix — no install)
 
@@ -167,19 +167,30 @@ secure context) → open `index.html`.
 ## Hosting the frontend (GitHub Pages — no build step)
 
 The frontend is a pure static site: relative paths only, no build step,
-no server. To host it:
+no server. **Live demo: https://maniking7021.github.io/originproof/**
+(repo: https://github.com/maniking7021/originproof — `main` branch holds
+the full project; the `gh-pages` branch holds the frontend at its root
+and is the Pages source). To re-host it:
 
 1. Create a free GitHub account (the user does this — Muse must not
    create accounts).
 2. Create a repository (e.g. `originproof`), upload the `frontend/`
    folder contents to its root (or to `docs/`).
-3. Settings → Pages → Source: Deploy from a branch → branch `main`,
-   folder `/` (or `/docs`) → Save.
+3. Settings → Pages → Source: Deploy from a branch → branch `gh-pages`,
+   folder `/` → Save.
 4. The site is live at `https://<username>.github.io/originproof/` —
    paste that URL into the submission as the live demo link and into
    `extension/background.js` (`ORIGINPROOF_URL`).
 5. Put the deployed contract address in `frontend/config.js` and push —
    Pages redeploys automatically.
+
+> **Mixed-content note:** the ME testnet RPC is plain HTTP
+> (`http://118.175.0.249:8545`), so a page served over HTTPS cannot call
+> it directly — browsers block it. On the live demo, allow insecure
+> content for the page (address-bar shield/tune icon → "Site settings" →
+> "Insecure content: Allow") and reload; wallet registration and
+> read-only verification then work. Local use over plain HTTP
+> (`python3 -m http.server` in `frontend/`) has no such block.
 
 ## Local checks (no deployment needed)
 
@@ -238,12 +249,13 @@ labelled as estimates until the first live receipts.
   approved; registration fixed 23 Nov 2026
 - [x] `config.js` filled from official ME docs (chain ID 400, RPC,
   explorer, faucet)
-- [ ] **Faucet claim** — 24h wait until ~12:15 PM PKT Tue 24 Nov 2026
-  (too many code requests); retry then, claim 2 MEC for deploy gas
-- [ ] Deploy to ME testnet (Remix), record contract address + first tx
-  hashes, fill `config.js`
-- [ ] Host the frontend on GitHub Pages (needs the user's GitHub
-  account — see hosting steps above)
+- [x] **Faucet claim** — 2 MEC claimed for the keccak address; arrived
+  24 Nov 2026 ~19:59 PKT (first claim to the mistyped address was lost)
+- [x] Deploy to ME testnet — **DONE 25 Nov 2026**: contract
+  `0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc`, tx `0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706`,
+  block 5502685; `config.js` filled
+- [x] Host the frontend on GitHub Pages — **DONE 25 Nov 2026**:
+  https://maniking7021.github.io/originproof/ (`gh-pages` branch)
 - [ ] End-to-end test with real photos/videos (original → ORIGINAL,
   edited copy → NEAR-DUPLICATE, unrelated → NOT FOUND)
 - [ ] Demo video (3–5 min, English — script in
