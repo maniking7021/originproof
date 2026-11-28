@@ -85,7 +85,7 @@ Browser (pure static site — no build step, no server)
   `http://118.175.0.249:8545`, explorer
   `https://www.explorer-testnet.me/`, faucet
   `https://www.mec.me/en-US/faucet` (2 MEC per claim, 1 per address/day).
-- **Contract:** `OriginProof.sol` v3, deployed at `[CONTRACT_ADDRESS]`.
+- **Contract:** `OriginProof.sol` v3, deployed at `0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc` (25 Nov 2026, tx `0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706`, block 5502685).
   Deploy: Remix IDE → compile with Solidity 0.8.28 → inject MetaMask →
   ME Network (chain ID 400) → deploy → paste the address into
   `frontend/config.js`. Full steps in `deploy-guide.md`.
@@ -164,5 +164,6 @@ which no competitor has.
 - Live demo: `https://maniking7021.github.io/originproof/`
 - Contract on ME explorer: `https://www.explorer-testnet.me/` — contract `0xbc6a84934ED39AB96259022Ac80d18C4b3d143cc` (deployed 25 Nov 2026, tx `0xe162495961fc364b1f2ac00348cb3738201b5b6d38e26376c6b8cacd04f07706`, block 5502685)
 - Code repository: `https://github.com/maniking7021/originproof`
-- Demo video (3–5 min, English): `[VIDEO_URL]`
+- Demo video (3–5 min, English): https://www.youtube.com/watch?v=JZHPiES_dLY
+- Demo video guide for judges (timestamped walkthrough): `docs/demo-video-guide-for-judges.md` in the repo
 - Team: Mani Team — Muhammad Zaman (captain, ME ID verified) + Sohail Abbas (ME ID verified)
