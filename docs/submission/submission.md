@@ -2,8 +2,8 @@
 
 > Ready-to-paste text for the MetaEarth HARBOR submission form
 > (track: **AI & Trust Infrastructure**). Deployed + live 25 Nov 2026 —
-> only the demo video link `[VIDEO_URL]` is still open (record after the
-> end-to-end test; script in `docs/demo-video-script.md`).
+> demo video recorded + uploaded 28 Nov 2026 (Unlisted, 4:54, English
+> subtitles burned in; script in `docs/demo-video-script.md`).
 
 ---
 
