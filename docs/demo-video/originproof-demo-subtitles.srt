@@ -1,0 +1,351 @@
+1
+00:00:00,000 --> 00:00:03,342
+Millions of photos and videos are copied,
+
+2
+00:00:03,422 --> 00:00:06,764
+edited and re-posted as if they were
+original.
+
+3
+00:00:06,844 --> 00:00:11,431
+Creators don't get credit, newsrooms can't
+tell what's real,
+
+4
+00:00:11,591 --> 00:00:14,620
+and AI can now fake any image in seconds.
+
+5
+00:00:15,740 --> 00:00:22,250
+The question is simple: who published this
+first, and how do we prove it?
+
+6
+00:00:22,410 --> 00:00:25,399
+OriginProof answers that question.
+
+7
+00:00:25,559 --> 00:00:30,500
+Upload a photo or video, and we compute
+
+8
+00:00:30,580 --> 00:00:35,520
+its fingerprint - a SHA-256 hash and a
+perceptual hash - in your browser.
+
+9
+00:00:36,720 --> 00:00:39,540
+Only the fingerprint goes on ME Network.
+
+10
+00:00:39,700 --> 00:00:44,760
+Anyone in the world can verify it - when
+it was registered, and by whom.
+
+11
+00:00:46,980 --> 00:00:50,234
+No wallet needed, no account needed.
+
+12
+00:00:50,394 --> 00:00:53,648
+Here is OriginProof, open in Chrome.
+
+13
+00:00:53,808 --> 00:00:55,950
+I simply upload my file.
+
+14
+00:00:56,110 --> 00:00:57,920
+Now, I have this image,
+
+15
+00:00:58,000 --> 00:00:59,316
+related to it.
+
+16
+00:00:59,476 --> 00:01:01,788
+I have uploaded it here.
+
+17
+00:01:01,948 --> 00:01:04,300
+You can give it any title.
+
+18
+00:01:07,230 --> 00:01:09,161
+Now I paste my ME ID.
+
+19
+00:01:09,321 --> 00:01:15,562
+This is for a verified MetaEarth user -
+otherwise you can skip it.
+
+20
+00:01:15,722 --> 00:01:21,867
+I am a verified MetaEarth user, so I have
+pasted my MetaEarth ID.
+
+21
+00:01:22,027 --> 00:01:26,257
+You can also add an invisible watermark
+here.
+
+22
+00:01:26,417 --> 00:01:29,784
+I enable it, and then I register it.
+
+23
+00:01:29,944 --> 00:01:37,030
+As I click Register, you can see our
+registration is being sent to the network.
+
+24
+00:01:37,110 --> 00:01:41,574
+Here we have our MetaMask pop-up for
+verification.
+
+25
+00:01:41,734 --> 00:01:47,380
+We review the alert here, acknowledge it,
+and confirm it again.
+
+26
+00:01:47,540 --> 00:01:52,095
+As you can see, our transaction is being
+processed.
+
+27
+00:01:52,255 --> 00:01:56,570
+As you can see, our transaction has been
+confirmed.
+
+28
+00:01:56,650 --> 00:01:59,260
+And we have got its proof here.
+
+29
+00:02:00,540 --> 00:02:03,640
+We have also got the proof of MetaEarth.
+
+30
+00:02:06,240 --> 00:02:11,039
+We have our evidence, and our evidence has
+been downloaded.
+
+31
+00:02:11,199 --> 00:02:14,592
+You can check the title of our image here.
+
+32
+00:02:14,752 --> 00:02:20,708
+This is its fingerprint, the uploader's ME
+ID - which is my MetaEarth ID.
+
+33
+00:02:20,868 --> 00:02:24,674
+After this, the registration date is also
+here.
+
+34
+00:02:24,834 --> 00:02:27,318
+It was registered at this time.
+
+35
+00:02:27,478 --> 00:02:28,886
+Let us close this.
+
+36
+00:02:29,046 --> 00:02:31,380
+This is how we come here to verify.
+
+37
+00:02:32,900 --> 00:02:35,394
+We simply come here to verify.
+
+38
+00:02:35,554 --> 00:02:40,537
+As we have verified, we have got COPY -
+already registered.
+
+39
+00:02:40,697 --> 00:02:43,106
+We had already registered it.
+
+40
+00:02:43,266 --> 00:02:48,764
+The verified owner has also come here -
+which is my MetaEarth ID.
+
+41
+00:02:48,924 --> 00:02:53,993
+Now, I will verify here - here we have
+this unrelated image.
+
+42
+00:02:54,153 --> 00:02:56,475
+We have not verified it yet.
+
+43
+00:02:56,635 --> 00:02:57,620
+We verify it here,
+
+44
+00:02:57,700 --> 00:02:59,730
+and here we have NOT FOUND.
+
+45
+00:02:59,890 --> 00:03:03,250
+This means we do not have it on this
+system.
+
+46
+00:03:03,410 --> 00:03:07,785
+In this way, we can register any image
+that we have here.
+
+47
+00:03:07,945 --> 00:03:12,476
+The person who registers it first will
+save it as evidence.
+
+48
+00:03:12,636 --> 00:03:15,527
+Let us suppose there is an image here.
+
+49
+00:03:15,687 --> 00:03:18,264
+If we verify it, who is the owner?
+
+50
+00:03:18,424 --> 00:03:21,861
+Sometimes people crop it and then re-post
+it.
+
+51
+00:03:22,021 --> 00:03:23,661
+We can verify it here.
+
+52
+00:03:23,821 --> 00:03:25,461
+We will check it here.
+
+53
+00:03:25,621 --> 00:03:27,400
+Let us see what is in this image.
+
+54
+00:03:27,980 --> 00:03:29,472
+It is its edited version.
+
+55
+00:03:29,632 --> 00:03:32,240
+I simply upload it here and click on
+Verify.
+
+56
+00:03:34,280 --> 00:03:41,479
+As you can see, we have got a
+near-duplicate - 77% similar.
+
+57
+00:03:41,639 --> 00:03:43,779
+I just cropped it.
+
+58
+00:03:43,939 --> 00:03:46,660
+We can verify it easily.
+
+59
+00:03:48,460 --> 00:03:51,841
+Now let us come to the simple question:
+how does it work?
+
+60
+00:03:52,001 --> 00:03:53,420
+To understand its working,
+
+61
+00:03:54,860 --> 00:03:56,920
+we first upload an image.
+
+62
+00:03:57,600 --> 00:03:59,107
+We have a fingerprint.
+
+63
+00:03:59,267 --> 00:04:02,280
+It goes to ME Network and it becomes
+secure.
+
+64
+00:04:04,300 --> 00:04:08,720
+Fingerprints, perceptual hash, ME ID, and
+C2PA manifest hash are stored.
+
+65
+00:04:09,820 --> 00:04:14,824
+The front-end is a pure static website - a
+pure static site.
+
+66
+00:04:14,984 --> 00:04:18,887
+There is no server, no database, no build
+step.
+
+67
+00:04:19,047 --> 00:04:22,611
+All sensitive work happens in your
+browser.
+
+68
+00:04:22,771 --> 00:04:26,589
+The file we uploaded never leaves your
+device.
+
+69
+00:04:26,749 --> 00:04:29,889
+Your private keys never touch the app.
+
+70
+00:04:30,049 --> 00:04:34,037
+OriginProof proves that we can verify any
+image.
+
+71
+00:04:34,197 --> 00:04:35,981
+We can upload it here.
+
+72
+00:04:36,141 --> 00:04:39,060
+We have got the certificate of this image.
+
+73
+00:04:39,780 --> 00:04:41,206
+What is the image owner?
+
+74
+00:04:41,366 --> 00:04:42,981
+This is our verified owner.
+
+75
+00:04:43,141 --> 00:04:44,693
+This is the owner's ME ID.
+
+76
+00:04:44,853 --> 00:04:47,860
+In this way, we can verify any image on
+the internet.
+
+77
+00:04:49,340 --> 00:04:50,241
+This is the owner.
+
+78
+00:04:50,401 --> 00:04:52,775
+This is the first person who has uploaded
+it.
+
+79
+00:04:52,935 --> 00:04:53,240
+Thank you.
+
